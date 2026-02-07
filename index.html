@@ -157,8 +157,15 @@ noBtn.innerText=texts[i%texts.length];
 i++;
 }
 
-noBtn.addEventListener("mouseover",moveButton);
-noBtn.addEventListener("touchstart",moveButton);
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveButton();
+});
+noBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    moveButton();
+});
 
 yesBtn.addEventListener("click",()=>{
 gif.style.display="none";
