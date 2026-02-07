@@ -144,6 +144,31 @@ noBtn.addEventListener("touchstart", moveButton);
 
 document.getElementById("yes").onclick = function(){
 
+// hide buttons
+document.getElementById("yes").style.display="none";
+document.getElementById("no").style.display="none";
+
+// change question text
+text.innerHTML = "I knew it 😍";
+
+// hide begging gif
+document.getElementById("beg").style.display="none";
+
+// show celebration gif
+document.getElementById("celebrate").style.display="block";
+
+// heart confetti
+setInterval(createHeart,200);
+
+// after 3 seconds show your photo
+setTimeout(()=>{
+document.getElementById("celebrate").style.display="none";
+document.getElementById("us").style.display="block";
+text.innerHTML = "You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
+},3000);
+
+};
+
 // change question text
 text.innerHTML = "I knew it 😍";
 
