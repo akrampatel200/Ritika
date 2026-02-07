@@ -6,38 +6,41 @@
 <title>For Ritika ❤️</title>
 
 <style>
-
 body{
 margin:0;
-height:100vh;
+padding:0;
 background:#f6c1cc;
+font-family:Arial, Helvetica, sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:Arial, Helvetica, sans-serif;
+height:100vh;
 overflow:hidden;
-text-align:center;
 }
 
+/* card /
 .container{
 background:white;
 padding:25px;
 border-radius:20px;
 box-shadow:0 10px 25px rgba(0,0,0,0.15);
 width:300px;
+text-align:center;
 position:relative;
+min-height:420px;
 }
 
 h2{
-color:#d6336c;
-margin-bottom:15px;
+color:#c2185b;
+margin-bottom:10px;
 }
 
 img{
 width:180px;
-margin:10px 0;
+margin:15px 0;
 }
 
+/ buttons /
 button{
 padding:12px 26px;
 font-size:18px;
@@ -48,35 +51,39 @@ appearance:none;
 -webkit-appearance:none;
 }
 
+/ YES button /
 #yes{
 background:#ff4d88;
 color:white;
-margin-right:10px;
 }
 
+/ NO button /
 #no{
 background:#8a8a8a;
 color:white;
-position:absolute;
-left:180px;
-top:260px;
+position:fixed;
+z-index:999;
 }
 
-/* heart confetti */
+/ hidden items /
+#celebrate,
+#us{
+display:none;
+width:220px;
+border-radius:15px;
+}
+
+/ hearts /
 .heart{
 position:fixed;
-top:-10px;
-font-size:20px;
-animation:fall 4s linear forwards;
+font-size:22px;
+animation:fall 3s linear infinite;
 }
 
 @keyframes fall{
-to{
-transform:translateY(110vh) rotate(360deg);
-opacity:0;
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
 }
-}
-
 </style>
 </head>
 
@@ -86,14 +93,19 @@ opacity:0;
 
 <h2 id="text">Ritika 🥺❤️<br>Will you be my Valentine?</h2>
 
+<!-- begging gif -->
 <img id="beg" src="beg.gif.GIF">
-<img id="celebrate" src="celebrate.gif.GIF" style="display:none;">
-<img id="us" src="us.jpg.jpg" style="display:none; width:220px; border-radius:15px;">
+
+<!-- celebration gif -->
+<img id="celebrate" src="celebrate.gif.GIF">
+
+<!-- your photo -->
+<img id="us" src="us.jpg.jpg">
 
 <br>
 
 <button id="yes">YES 💖</button>
-<button id="no">NO</button>
+<button id="no">NO 😭</button>
 
 </div>
 
@@ -102,62 +114,69 @@ opacity:0;
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
 const text = document.getElementById("text");
-const beg = document.getElementById("beg");
-const celebrate = document.getElementById("celebrate");
-const us = document.getElementById("us");
 
-/* YES BUTTON */
-yesBtn.onclick = function(){
-
-yesBtn.style.display="none";
-noBtn.style.display="none";
-
-text.innerHTML="I knew it 😍";
-
-beg.style.display="none";
-celebrate.style.display="block";
-
-startHearts();
-
-setTimeout(()=>{
-celebrate.style.display="none";
-us.style.display="block";
-text.innerHTML="You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
-},3000);
-
-};
-
-/* NO BUTTON RUN AWAY (works on iPhone tap) */
-
+/ -------- NO BUTTON RUNS AWAY -------- /
 function moveButton(){
-let x = Math.random() * (window.innerWidth - 120);
-let y = Math.random() * (window.innerHeight - 80);
+
+const padding = 20;
+
+let maxX = window.innerWidth - noBtn.offsetWidth - padding;
+let maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+let x = Math.random() * maxX;
+let y = Math.random() * maxY;
 
 noBtn.style.left = x + "px";
 noBtn.style.top = y + "px";
 }
 
+/ mobile + desktop triggers /
 noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
-/* HEART CONFETTI */
 
+/ -------- YES CLICK -------- /
+yesBtn.onclick = function(){
+
+/ hide buttons /
+yesBtn.style.display="none";
+noBtn.style.display="none";
+
+/ change text /
+text.innerHTML="I knew it 😍";
+
+/ swap gif /
+document.getElementById("beg").style.display="none";
+document.getElementById("celebrate").style.display="block";
+
+/ heart confetti /
+setInterval(createHeart,200);
+
+/ show your photo after 3 sec /
+setTimeout(()=>{
+document.getElementById("celebrate").style.display="none";
+document.getElementById("us").style.display="block";
+text.innerHTML="You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
+},3000);
+
+};
+
+
+/ -------- HEART CONFETTI -------- */
 function createHeart(){
-const heart = document.createElement("div");
+const heart=document.createElement("div");
 heart.classList.add("heart");
 heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+15)+"px";
+heart.style.animationDuration=(2+Math.random()*3)+"s";
 document.body.appendChild(heart);
 
-setTimeout(()=>heart.remove(),4000);
-}
-
-function startHearts(){
-setInterval(createHeart,250);
+setTimeout(()=>{
+heart.remove();
+},5000);
 }
 
 </script>
 
 </body>
-</html>
+</ht
