@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Ritika ❤️</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+background:#ffd6e0;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-family:Arial;
+overflow:hidden;
+}
+
+.container{
+max-width:350px;
+padding:20px;
+}
+
+h1{
+color:#b3003c;
+background:white;
+padding:15px;
+border-radius:18px;
+}
+
+img{
+width:230px;
+border-radius:18px;
+margin-top:10px;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:30px;
+margin:10px;
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+}
+
+#no{
+background:gray;
+position:fixed;
+left:65%;
+top:70%;
+}
+
+#celebrate{
+display:none;
+}
+
+#us{
+display:none;
+margin-top:15px;
+}
+
+.message{
+display:none;
+font-size:22px;
+color:#b3003c;
+font-weight:bold;
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="q">
+Ritika 🥺❤️<br><br>
+Will you be my Valentine?
+</h1>
+
+<img id="beg" src="beg.gif">
+
+<br>
+
+<button id="yes">YES 💖</button>
+<button id="no">NO</button>
+
+<div id="celebrate">
+<h1>YAYYYY ❤️</h1>
+<img src="celebrate.gif">
+<img id="us" src="us.jpg">
+
+<div class="message" id="msg">
+You’re stuck with me for life ❤️<br>
+I’m going to annoy you forever 😌💞
+</div>
+</div>
+
+</div>
+
+<script>
+var no=document.getElementById("no");
+var yes=document.getElementById("yes");
+
+function runAway(){
+var x=Math.random()(window.innerWidth-100);
+var y=Math.random()(window.innerHeight-60);
+no.style.left=x+"px";
+no.style.top=y+"px";
+}
+
+document.addEventListener("touchstart",function(e){
+var rect=no.getBoundingClientRect();
+var touch=e.touches[0];
+
+if(Math.abs(touch.clientX-rect.left)<120 &&
+Math.abs(touch.clientY-rect.top)<120){
+runAway();
+}
+});
+
+no.addEventListener("click",function(e){
+e.preventDefault();
+runAway();
+});
+
+yes.addEventListener("click",function(){
+document.getElementById("beg").style.display="none";
+document.getElementById("q").style.display="none";
+yes.style.display="none";
+no.style.display="none";
+
+document.getElementById("celebrate").style.display="block";
+document.getElementById("us").style.display="block";
+document.getElementById("msg").style.display="block";
+});
+</script>
+
+</body>
+</ht
