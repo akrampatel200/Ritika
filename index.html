@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ffd6e0,#fff0f5);
+    font-family:'Dancing Script', cursive;
+    overflow:hidden;
+    text-align:center;
+}
+
+.container{
+    position:relative;
+}
+
+h1{
+    font-size:2.3rem;
+    color:#ff2e63;
+    margin-bottom:15px;
+}
+
+#gif{
+    width:260px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.buttons{
+    margin-top:20px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.2s;
+}
+
+#yesBtn{
+    background:#ff4d6d;
+    color:white;
+}
+
+#yesBtn:hover{
+    transform:scale(1.1);
+}
+
+#noBtn{
+    background:#ccc;
+    position:absolute;
+}
+
+#celebration{
+    display:none;
+}
+
+#ourPhoto{
+    display:none;
+    margin-top:15px;
+    width:260px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.message{
+    font-size:26px;
+    color:#ff2e63;
+    margin-top:20px;
+    display:none;
+}
+
+/* hearts animation */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:24px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) scale(1);}
+    100%{transform:translateY(-100vh) scale(1.5);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="question">Will you be my Valentine? ❤️</h1>
+
+<img id="gif" src="beg.gif">
+
+<div class="buttons">
+<button id="yesBtn">YES 💖</button>
+<button id="noBtn">NO</button>
+</div>
+
+<div id="celebration">
+<h1>You just made me the happiest person ❤️</h1>
+<img id="gif2" src="celebrate.gif">
+<img id="ourPhoto" src="us.jpg">
+<div class="message">I can't wait to spend Valentine's Day with you 💞</div>
+</div>
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+const gif = document.getElementById("gif");
+const celebration = document.getElementById("celebration");
+const ourPhoto = document.getElementById("ourPhoto");
+const message = document.querySelector(".message");
+
+let messages = [
+"Are you sure? 🥺",
+"Think again 😭",
+"Wrong answer",
+"You don’t mean that...",
+"Try the other button ❤️"
+];
+
+let i = 0;
+
+// make NO button run away
+function moveButton(){
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    noBtn.innerText = messages[i % messages.length];
+    i++;
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// YES button click
+yesBtn.addEventListener("click", ()=>{
+
+    // hide question elements
+    gif.style.display="none";
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+    question.style.display="none";
+
+    // show celebration
+    celebration.style.display="block";
+    ourPhoto.style.display="block";
+    message.style.display="block";
+
+    createHearts();
+});
+
+// floating hearts
+function createHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"vw";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+}
+
+</script>
+
+</body>
+</h
