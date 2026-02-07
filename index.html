@@ -12,7 +12,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#f6c6cf;
+    background:#f7c8d0;
     font-family:Arial, Helvetica, sans-serif;
     overflow:hidden;
 }
@@ -21,46 +21,55 @@ body{
     text-align:center;
 }
 
-.box{
+.question{
     background:white;
-    padding:18px 25px;
+    padding:20px 30px;
     border-radius:15px;
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
-    color:#c2185b;
+    color:#d81b60;
     margin-bottom:20px;
 }
 
 img{
     width:200px;
-    margin:10px 0;
 }
 
 .buttons{
-    position:relative;
-    height:150px;
+    margin-top:20px;
 }
 
 button{
-    padding:12px 26px;
+    padding:12px 28px;
     font-size:18px;
     border:none;
-    border-radius:25px;
+    border-radius:30px;
     cursor:pointer;
-    transition:0.2s;
 }
 
-#yesBtn{
+#yes{
     background:#ff4d88;
     color:white;
 }
 
-#noBtn{
+#no{
     background:gray;
     color:white;
     position:absolute;
-    left:60%;
-    top:60%;
+}
+
+/* hearts */
+.heart{
+    position:fixed;
+    top:-10px;
+    font-size:24px;
+    animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+    }
 }
 </style>
 </head>
@@ -69,7 +78,7 @@ button{
 
 <div class="card">
 
-<div class="box">
+<div class="question" id="text">
 Ritika 🥺❤️<br><br>
 Will you be my Valentine?
 </div>
@@ -77,53 +86,88 @@ Will you be my Valentine?
 <img src="bear.gif">
 
 <div class="buttons">
-<button id="yesBtn">YES 💖</button>
-<button id="noBtn">NO</button>
+<button id="yes">YES 💖</button>
+<button id="no">NO</button>
 </div>
 
 </div>
 
 <script>
 
-const noBtn = document.getElementById("noBtn");
+const noBtn = document.getElementById("no");
+const text = document.getElementById("text");
 
-/* ---- THIS IS THE FIX ---- */
-/* Works on both laptop AND phone */
+let messages = [
+"Are you sure? 🥺",
+"Think again…",
+"Pleaseeee 😭",
+"I bought chocolates already 🍫",
+"I'll cry 😢",
+"Last chance!",
+"Ritika don't do this 😭",
+"You can't escape me 😈",
+"Okay fine… but try YES once",
+"You're breaking my heart 💔"
+];
 
-function moveButton() {
+let i = 0;
 
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
+/* move button */
+function moveButton(){
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 80);
 
-    noBtn.style.position = "fixed";
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
+
+    text.innerHTML = messages[i % messages.length];
+    i++;
 }
 
-/* for mouse */
+/* desktop */
 noBtn.addEventListener("mouseover", moveButton);
 
-/* for mobile touch */
+/* mobile */
 noBtn.addEventListener("touchstart", moveButton);
 
-document.getElementById("yesBtn").addEventListener("click", function(){
-    document.body.innerHTML = `
-    <div style="
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#f6c6cf;
-        font-size:28px;
-        text-align:center;
-        padding:20px;
-        color:#c2185b;
-        font-weight:bold;
-        font-family:Arial;">
-        You’re stuck with me for life 😘<br>
-        I’ll annoy you forever ❤️
-    </div>`;
-});
+/* YES BUTTON */
+document.getElementById("yes").onclick = function(){
+
+document.body.innerHTML = `
+<div style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:#f7c8d0;
+font-size:28px;
+color:#d81b60;
+text-align:center;
+font-weight:bold;
+">
+You’re stuck with me for life 😘<br>
+I’ll annoy you forever ❤️
+</div>`;
+
+/* heart confetti */
+setInterval(createHeart, 200);
+};
+
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random()*20 + 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },4000);
+}
 
 </script>
 
