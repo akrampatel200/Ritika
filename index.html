@@ -7,69 +7,78 @@
 
 <style>
 body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#f7c8d0;
-    font-family:Arial, Helvetica, sans-serif;
-    overflow:hidden;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f7c8d0;
+font-family:Arial, Helvetica, sans-serif;
+overflow:hidden;
 }
 
 .card{
-    text-align:center;
+text-align:center;
+position:relative;
 }
 
 .question{
-    background:white;
-    padding:20px 30px;
-    border-radius:15px;
-    font-size:24px;
-    font-weight:bold;
-    color:#d81b60;
-    margin-bottom:20px;
+background:white;
+padding:20px 28px;
+border-radius:18px;
+font-size:24px;
+font-weight:bold;
+color:#d81b60;
+margin-bottom:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
 img{
-    width:200px;
+width:220px;
+margin-top:10px;
+border-radius:12px;
 }
 
 .buttons{
-    margin-top:20px;
+margin-top:18px;
 }
 
 button{
-    padding:12px 28px;
-    font-size:18px;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
+padding:12px 26px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
 }
 
 #yes{
-    background:#ff4d88;
-    color:white;
+background:#ff4d88;
+color:white;
 }
 
 #no{
-    background:gray;
-    color:white;
-    position:absolute;
+background:#7a7a7a;
+color:white;
+position:absolute;
+}
+
+/* hidden elements */
+#celebrate, #us{
+display:none;
 }
 
 /* hearts */
 .heart{
-    position:fixed;
-    top:-10px;
-    font-size:24px;
-    animation:fall 4s linear infinite;
+position:fixed;
+top:-10px;
+font-size:24px;
+animation:fall 4s linear infinite;
 }
 
 @keyframes fall{
-    to{
-        transform:translateY(110vh);
-    }
+to{
+transform:translateY(110vh);
+}
 }
 </style>
 </head>
@@ -83,7 +92,14 @@ Ritika 🥺❤️<br><br>
 Will you be my Valentine?
 </div>
 
-<img src="bear.gif">
+<!-- begging gif -->
+<img id="beg" src="beg.gif">
+
+<!-- celebration gif -->
+<img id="celebrate" src="celebrate.gif">
+
+<!-- your photo -->
+<img id="us" src="us.jpg">
 
 <div class="buttons">
 <button id="yes">YES 💖</button>
@@ -101,72 +117,62 @@ let messages = [
 "Are you sure? 🥺",
 "Think again…",
 "Pleaseeee 😭",
-"I bought chocolates already 🍫",
+"I got chocolates ready 🍫",
 "I'll cry 😢",
 "Last chance!",
 "Ritika don't do this 😭",
 "You can't escape me 😈",
-"Okay fine… but try YES once",
+"Just press YES na ❤️",
 "You're breaking my heart 💔"
 ];
 
 let i = 0;
 
-/* move button */
 function moveButton(){
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 80);
+const x = Math.random() * (window.innerWidth - 120);
+const y = Math.random() * (window.innerHeight - 80);
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
 
-    text.innerHTML = messages[i % messages.length];
-    i++;
+text.innerHTML = messages[i % messages.length];
+i++;
 }
 
-/* desktop */
 noBtn.addEventListener("mouseover", moveButton);
-
-/* mobile */
 noBtn.addEventListener("touchstart", moveButton);
 
-/* YES BUTTON */
 document.getElementById("yes").onclick = function(){
 
-document.body.innerHTML = `
-<div style="
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-background:#f7c8d0;
-font-size:28px;
-color:#d81b60;
-text-align:center;
-font-weight:bold;
-">
-You’re stuck with me for life 😘<br>
-I’ll annoy you forever ❤️
-</div>`;
+// change question text
+text.innerHTML = "I knew it 😍";
 
-/* heart confetti */
-setInterval(createHeart, 200);
+// hide begging gif
+document.getElementById("beg").style.display="none";
+
+// show celebration gif
+document.getElementById("celebrate").style.display="block";
+
+// heart confetti
+setInterval(createHeart,200);
+
+// after 3 seconds show your photo
+setTimeout(()=>{
+document.getElementById("celebrate").style.display="none";
+document.getElementById("us").style.display="block";
+text.innerHTML = "You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
+},3000);
+
 };
 
 function createHeart(){
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.fontSize = (Math.random()*20 + 20) + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },4000);
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),4000);
 }
 
 </script>
