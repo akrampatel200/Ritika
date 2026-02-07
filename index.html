@@ -6,41 +6,36 @@
 <title>For Ritika ❤️</title>
 
 <style>
+
 body{
 margin:0;
 height:100vh;
+background:#f6c1cc;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#f7c8d0;
 font-family:Arial, Helvetica, sans-serif;
 overflow:hidden;
+text-align:center;
 }
 
-.card{
-text-align:center;
+.container{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+width:300px;
 position:relative;
 }
 
-.question{
-background:white;
-padding:20px 28px;
-border-radius:18px;
-font-size:24px;
-font-weight:bold;
-color:#d81b60;
+h2{
+color:#d6336c;
 margin-bottom:15px;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
 img{
-width:220px;
-margin-top:10px;
-border-radius:12px;
-}
-
-.buttons{
-margin-top:18px;
+width:180px;
+margin:10px 0;
 }
 
 button{
@@ -56,161 +51,110 @@ appearance:none;
 #yes{
 background:#ff4d88;
 color:white;
+margin-right:10px;
 }
 
 #no{
 background:#8a8a8a;
 color:white;
 position:absolute;
+left:180px;
+top:260px;
 }
 
-#yes{
-background:#ff4d88;
-color:white;
-}
-
-#no{
-background:#7a7a7a;
-color:white;
-position:absolute;
-}
-
-/* hidden elements */
-#celebrate, #us{
-display:none;
-}
-
-/* hearts */
+/* heart confetti */
 .heart{
 position:fixed;
 top:-10px;
-font-size:24px;
-animation:fall 4s linear infinite;
+font-size:20px;
+animation:fall 4s linear forwards;
 }
 
 @keyframes fall{
 to{
-transform:translateY(110vh);
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
 }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<div class="question" id="text">
-Ritika 🥺❤️<br><br>
-Will you be my Valentine?
-</div>
+<h2 id="text">Ritika 🥺❤️<br>Will you be my Valentine?</h2>
 
-<!-- begging gif -->
 <img id="beg" src="beg.gif.GIF">
+<img id="celebrate" src="celebrate.gif.GIF" style="display:none;">
+<img id="us" src="us.jpg.jpg" style="display:none; width:220px; border-radius:15px;">
 
-<!-- celebration gif -->
-<img id="celebrate" src="celebrate.gif.GIF">
+<br>
 
-<!-- your photo -->
-<img id="us" src="us.jpg.jpg">
-
-<div class="buttons">
 <button id="yes">YES 💖</button>
 <button id="no">NO</button>
-</div>
 
 </div>
 
 <script>
 
+const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
 const text = document.getElementById("text");
+const beg = document.getElementById("beg");
+const celebrate = document.getElementById("celebrate");
+const us = document.getElementById("us");
 
-let messages = [
-"Are you sure? 🥺",
-"Think again…",
-"Pleaseeee 😭",
-"I got chocolates ready 🍫",
-"I'll cry 😢",
-"Last chance!",
-"Ritika don't do this 😭",
-"You can't escape me 😈",
-"Just press YES na ❤️",
-"You're breaking my heart 💔"
-];
+/* YES BUTTON */
+yesBtn.onclick = function(){
 
-let i = 0;
+yesBtn.style.display="none";
+noBtn.style.display="none";
+
+text.innerHTML="I knew it 😍";
+
+beg.style.display="none";
+celebrate.style.display="block";
+
+startHearts();
+
+setTimeout(()=>{
+celebrate.style.display="none";
+us.style.display="block";
+text.innerHTML="You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
+},3000);
+
+};
+
+/* NO BUTTON RUN AWAY (works on iPhone tap) */
 
 function moveButton(){
-const x = Math.random() * (window.innerWidth - 120);
-const y = Math.random() * (window.innerHeight - 80);
+let x = Math.random() * (window.innerWidth - 120);
+let y = Math.random() * (window.innerHeight - 80);
 
 noBtn.style.left = x + "px";
 noBtn.style.top = y + "px";
-
-text.innerHTML = messages[i % messages.length];
-i++;
 }
 
-noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
 
-document.getElementById("yes").onclick = function(){
-
-// hide buttons
-document.getElementById("yes").style.display="none";
-document.getElementById("no").style.display="none";
-
-// change question text
-text.innerHTML = "I knew it 😍";
-
-// hide begging gif
-document.getElementById("beg").style.display="none";
-
-// show celebration gif
-document.getElementById("celebrate").style.display="block";
-
-// heart confetti
-setInterval(createHeart,200);
-
-// after 3 seconds show your photo
-setTimeout(()=>{
-document.getElementById("celebrate").style.display="none";
-document.getElementById("us").style.display="block";
-text.innerHTML = "You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
-},3000);
-
-};
-
-// change question text
-text.innerHTML = "I knew it 😍";
-
-// hide begging gif
-document.getElementById("beg").style.display="none";
-
-// show celebration gif
-document.getElementById("celebrate").style.display="block";
-
-// heart confetti
-setInterval(createHeart,200);
-
-// after 3 seconds show your photo
-setTimeout(()=>{
-document.getElementById("celebrate").style.display="none";
-document.getElementById("us").style.display="block";
-text.innerHTML = "You’re stuck with me for life 😘<br>I’ll annoy you forever ❤️";
-},3000);
-
-};
+/* HEART CONFETTI */
 
 function createHeart(){
-const heart=document.createElement("div");
-heart.className="heart";
+const heart = document.createElement("div");
+heart.classList.add("heart");
 heart.innerHTML="❤️";
-heart.style.left=Math.random()*window.innerWidth+"px";
-heart.style.fontSize=(Math.random()*20+20)+"px";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
 document.body.appendChild(heart);
+
 setTimeout(()=>heart.remove(),4000);
+}
+
+function startHearts(){
+setInterval(createHeart,250);
 }
 
 </script>
